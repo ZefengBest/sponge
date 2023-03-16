@@ -1,5 +1,7 @@
 #include "byte_stream.hh"
 
+#include <iostream>
+
 // Dummy implementation of a flow-controlled in-memory byte stream.
 
 // For Lab 0, please replace with a real implementation that passes the
@@ -8,46 +10,64 @@
 // You will need to add private members to the class declaration in `byte_stream.hh`
 
 template <typename... Targs>
-void DUMMY_CODE(Targs &&... /* unused */) {}
+void DUMMY_CODE(Targs &&.../* unused */) {}
 
 using namespace std;
 
-ByteStream::ByteStream(const size_t capacity) { DUMMY_CODE(capacity); }
+ByteStream::ByteStream(const size_t capacity) : maxCapacity(capacity), total_read(0),total_write(0),_input_ended_flag(false) {
+}
 
 size_t ByteStream::write(const string &data) {
-    DUMMY_CODE(data);
-    return {};
+    int count = 0;
+    for (size_t i = 0; i < data.size() && stream.size() < this->maxCapacity; i++) {
+        stream.push_back(data[i]);
+        count++;
+        this->total_write++;
+    }
+    return count;
 }
 
 //! \param[in] len bytes will be copied from the output side of the buffer
 string ByteStream::peek_output(const size_t len) const {
-    DUMMY_CODE(len);
-    return {};
+    std::string result;
+    for (size_t i = 0; i < len && i<this->stream.size(); i++) {
+        result += stream[i];
+    }
+    return result;
 }
 
 //! \param[in] len bytes will be removed from the output side of the buffer
-void ByteStream::pop_output(const size_t len) { DUMMY_CODE(len); }
+void ByteStream::pop_output(const size_t len) {
+    for (size_t i = 0; i < len && !stream.empty(); i++) {
+        stream.pop_front();
+        this->total_read++;
+    }
+}
 
 //! Read (i.e., copy and then pop) the next "len" bytes of the stream
 //! \param[in] len bytes will be popped and returned
 //! \returns a string
 std::string ByteStream::read(const size_t len) {
-    DUMMY_CODE(len);
-    return {};
+    std::string result;
+    for (size_t i = 0; i < len && i<this->stream.size(); i++) {
+        result += stream[i];
+    }
+    pop_output(len);
+    return result;
 }
 
-void ByteStream::end_input() {}
+void ByteStream::end_input() {this->_input_ended_flag = true;}
 
-bool ByteStream::input_ended() const { return {}; }
+bool ByteStream::input_ended() const { return this->_input_ended_flag; }
 
-size_t ByteStream::buffer_size() const { return {}; }
+size_t ByteStream::buffer_size() const { return this->stream.size(); }
 
-bool ByteStream::buffer_empty() const { return {}; }
+bool ByteStream::buffer_empty() const { return this->stream.empty(); }
 
-bool ByteStream::eof() const { return false; }
+bool ByteStream::eof() const { return buffer_empty()&&input_ended(); }
 
-size_t ByteStream::bytes_written() const { return {}; }
+size_t ByteStream::bytes_written() const { return this->total_write; }
 
-size_t ByteStream::bytes_read() const { return {}; }
+size_t ByteStream::bytes_read() const { return this->total_read; }
 
-size_t ByteStream::remaining_capacity() const { return {}; }
+size_t ByteStream::remaining_capacity() const { return this->maxCapacity - this->stream.size(); }

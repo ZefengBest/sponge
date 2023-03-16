@@ -1,6 +1,6 @@
 const uint16_t portnum = ((std::random_device()()) % 50000) + 1025;
 
-// create a TCP socket, bind it to a local address, and listen
+// create a TCP socket, bind it to a local address, and listen serves as the server code
 TCPSocket sock1;
 sock1.bind(Address("127.0.0.1", portnum));
 sock1.listen(1);

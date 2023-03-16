@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -17,8 +18,27 @@ void get_URL(const string &host, const string &path) {
     // (not just one call to read() -- everything) until you reach
     // the "eof" (end of file).
 
-    cerr << "Function called: get_URL(" << host << ", " << path << ").\n";
-    cerr << "Warning: get_URL() has not been implemented yet.\n";
+    //TODO 1. Have a new Socket
+    //   2. get peer address from host name,
+    //    3. write a string that contains Request Line & Header Lines
+    TCPSocket socket;
+    Address peer_address = Address(host,"http");
+    socket.connect(peer_address);
+
+    std::string message = "GET "+path+" HTTP/1.1\r\n"+"Host: "+host+"\r\n"+"Connection: close\r\n"+"\r\n";
+    socket.write(message);
+
+//    cout<<"Get response message:\n";
+    std::string response;
+    while(true){
+        std::string s = socket.read();
+        response+=s;
+        if(s.length()<=0) break;
+    }
+    cout<<response;
+//
+//    cerr << "Function called: get_URL(" << host << ", " << path << ").\n";
+//    cerr << "Warning: get_URL() has not been implemented yet.\n";
 }
 
 int main(int argc, char *argv[]) {
