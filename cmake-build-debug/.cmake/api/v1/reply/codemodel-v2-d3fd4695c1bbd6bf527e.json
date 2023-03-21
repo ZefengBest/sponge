@@ -46,7 +46,7 @@
 					"source" : "libsponge",
 					"targetIndexes" : 
 					[
-						18
+						26
 					]
 				},
 				{
@@ -61,7 +61,7 @@
 					"source" : "apps",
 					"targetIndexes" : 
 					[
-						20
+						28
 					]
 				},
 				{
@@ -81,7 +81,15 @@
 						3,
 						4,
 						5,
-						19
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						27
 					]
 				},
 				{
@@ -97,8 +105,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						16,
-						17
+						24,
+						25
 					]
 				}
 			],
@@ -137,7 +145,15 @@
 						17,
 						18,
 						19,
-						20
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28
 					]
 				}
 			],
@@ -153,35 +169,35 @@
 				{
 					"directoryIndex" : 3,
 					"id" : "byte_stream_capacity::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-byte_stream_capacity-Debug-5a9105fd4b095f169941.json",
+					"jsonFile" : "target-byte_stream_capacity-Debug-012b8af87098ffe0c8a5.json",
 					"name" : "byte_stream_capacity",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "byte_stream_construction::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-byte_stream_construction-Debug-f05891d47c7a15ad39bd.json",
+					"jsonFile" : "target-byte_stream_construction-Debug-85cbc7f031251e29326d.json",
 					"name" : "byte_stream_construction",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "byte_stream_many_writes::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-byte_stream_many_writes-Debug-65e2781f228953407236.json",
+					"jsonFile" : "target-byte_stream_many_writes-Debug-2c4c215e906fbe66c818.json",
 					"name" : "byte_stream_many_writes",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "byte_stream_one_write::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-byte_stream_one_write-Debug-f616176f80769b301e45.json",
+					"jsonFile" : "target-byte_stream_one_write-Debug-185f93c552d61158e7a9.json",
 					"name" : "byte_stream_one_write",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "byte_stream_two_writes::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-byte_stream_two_writes-Debug-7626fb61c2eff05dd516.json",
+					"jsonFile" : "target-byte_stream_two_writes-Debug-bc4f0eabba96508ad107.json",
 					"name" : "byte_stream_two_writes",
 					"projectIndex" : 0
 				},
@@ -256,6 +272,62 @@
 					"projectIndex" : 0
 				},
 				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_cap::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_cap-Debug-5b679cde34f74bb64ad0.json",
+					"name" : "fsm_stream_reassembler_cap",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_dup::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_dup-Debug-1a07b679d641fbac40e9.json",
+					"name" : "fsm_stream_reassembler_dup",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_holes::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_holes-Debug-053b7ab16f94c965f7f2.json",
+					"name" : "fsm_stream_reassembler_holes",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_many::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_many-Debug-2c5267281617615885a1.json",
+					"name" : "fsm_stream_reassembler_many",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_overlapping::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_overlapping-Debug-9b1a69f6fa7e771acf22.json",
+					"name" : "fsm_stream_reassembler_overlapping",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_seq::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_seq-Debug-15f6529af4714c881de5.json",
+					"name" : "fsm_stream_reassembler_seq",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_single::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_single-Debug-39b64d5f5dc14aca7a18.json",
+					"name" : "fsm_stream_reassembler_single",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "fsm_stream_reassembler_win::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-fsm_stream_reassembler_win-Debug-11f3a252ac1eaaa4568c.json",
+					"name" : "fsm_stream_reassembler_win",
+					"projectIndex" : 0
+				},
+				{
 					"directoryIndex" : 4,
 					"id" : "parser_dt::@72ccb64eab70e6493db5",
 					"jsonFile" : "target-parser_dt-Debug-2c0cd06a8bc4bd8d989f.json",
@@ -272,7 +344,7 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "sponge::@a8e6c790d0258cd30bbf",
-					"jsonFile" : "target-sponge-Debug-69ed4f2e1b05d080ad7f.json",
+					"jsonFile" : "target-sponge-Debug-27dad09b9394b037fa06.json",
 					"name" : "sponge",
 					"projectIndex" : 0
 				},

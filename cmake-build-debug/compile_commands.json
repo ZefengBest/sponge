@@ -6,6 +6,11 @@
 },
 {
   "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o libsponge/CMakeFiles/sponge.dir/stream_reassembler.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/stream_reassembler.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/stream_reassembler.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
   "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o libsponge/CMakeFiles/sponge.dir/util/address.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util/address.cc",
   "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util/address.cc"
 },
@@ -53,6 +58,46 @@
   "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
   "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/spongechecks.dir/byte_stream_test_harness.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/byte_stream_test_harness.cc",
   "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/byte_stream_test_harness.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_single.dir/fsm_stream_reassembler_single.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_single.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_single.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_seq.dir/fsm_stream_reassembler_seq.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_seq.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_seq.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_dup.dir/fsm_stream_reassembler_dup.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_dup.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_dup.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_holes.dir/fsm_stream_reassembler_holes.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_holes.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_holes.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_many.dir/fsm_stream_reassembler_many.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_many.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_many.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_overlapping.dir/fsm_stream_reassembler_overlapping.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_overlapping.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_overlapping.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_win.dir/fsm_stream_reassembler_win.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_win.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_win.cc"
+},
+{
+  "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/util -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge/tcp_helpers -I/Users/niuzefeng/CLionProjects/cs144/sponge/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -Wloop-analysis -g -ggdb3 -Og -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++17 -o tests/CMakeFiles/fsm_stream_reassembler_cap.dir/fsm_stream_reassembler_cap.cc.o -c /Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_cap.cc",
+  "file": "/Users/niuzefeng/CLionProjects/cs144/sponge/tests/fsm_stream_reassembler_cap.cc"
 },
 {
   "directory": "/Users/niuzefeng/CLionProjects/cs144/sponge/cmake-build-debug",
