@@ -14,8 +14,6 @@ using namespace std;
 void TCPReceiver::segment_received(const TCPSegment &seg) {
     TCPHeader header = seg.header();
 //    uint64_t segSize = seg.length_in_sequence_space();
-
-
     uint64_t prevSize = this->stream_out().buffer_size();
     if (header.syn == true) {
         bool eof = false;
