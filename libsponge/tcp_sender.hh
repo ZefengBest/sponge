@@ -7,7 +7,26 @@
 #include "wrapping_integers.hh"
 
 #include <functional>
+#include <map>
 #include <queue>
+#include <iostream>
+
+class SendTimer {
+  private:
+    std::optional<uint16_t> curTime = std::nullopt;
+    uint16_t RTO = 0;
+    uint16_t RTO_init;
+
+  public:
+    SendTimer(const uint16_t _initial_retransmission_timeout);
+
+    void resetAckRTO();
+    void resetReTXRTO();
+    void restart();
+    bool checkExpire(const size_t ms_since_last_tick);
+    bool hasStart();
+    void stop();
+};
 
 //! \brief The "sender" part of a TCP implementation.
 
@@ -31,6 +50,20 @@ class TCPSender {
 
     //! the (absolute) sequence number for the next byte to be sent
     uint64_t _next_seqno{0};
+
+    uint16_t curSendWindowSize = 1;   //TODO by default how to represent 1 byte using uint16_t?
+
+    uint16_t curRecvWindowSize = 1;
+
+    uint64_t consecutiveReTX = 0;
+
+
+    uint64_t checkPoint = 0;    //for checking ackno
+
+    std::map<uint64_t, TCPSegment> outMap={};
+
+    SendTimer timer;
+
 
   public:
     //! Initialize a TCPSender
@@ -82,7 +115,8 @@ class TCPSender {
     //!@{
 
     //! \brief absolute seqno for the next byte to be sent
-    uint64_t next_seqno_absolute() const { return _next_seqno; }
+    uint64_t next_seqno_absolute() const {
+        return _next_seqno; }
 
     //! \brief relative seqno for the next byte to be sent
     WrappingInt32 next_seqno() const { return wrap(_next_seqno, _isn); }
