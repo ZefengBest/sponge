@@ -37,7 +37,7 @@ void TCPSender::fill_window() {
     if ((stream_in().eof()) && (next_seqno_absolute() == _stream.bytes_written() + 2)) //TODO weak fix when FIN_SENT
         return;
 
-    if (next_seqno_absolute() != 0 && _stream.buffer_empty() && !_stream.eof())
+    if (next_seqno_absolute() != 0 && _stream.buffer_empty() && !_stream.eof()) //TODO weak fix when enter SYN_ACKED/SYN_SENT stage but no data
         return;
 
     while (bytes_in_flight() < curRecvWindowSize) {
