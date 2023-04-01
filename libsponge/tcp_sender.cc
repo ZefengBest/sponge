@@ -34,34 +34,30 @@ size_t TCPSender::bytes_in_flight() const {
 
 void TCPSender::fill_window() {
 
-    if(bytes_in_flight() > curRecvWindowSize) return;
-
     if ((stream_in().eof()) && (next_seqno_absolute() == _stream.bytes_written() + 2)) //TODO weak fix when FIN_SENT
         return;
 
     if (next_seqno_absolute() != 0 && _stream.buffer_empty() && !_stream.eof())
         return;
 
-    while (curSendWindowSize > 0) {
+    while (bytes_in_flight() < curRecvWindowSize) {
+        uint64_t  curBytesInFlight = bytes_in_flight();
         TCPSegment segment;
 
         if (next_seqno_absolute() == 0) {  // closed stated
             segment.header().syn = true;
-            curSendWindowSize = 0;
         }
 
         std::string data = "";
-        while (data.size() < TCPConfig::MAX_PAYLOAD_SIZE && !_stream.buffer_empty() && curSendWindowSize > 0) {
+        while (data.size() < TCPConfig::MAX_PAYLOAD_SIZE && !_stream.buffer_empty() && data.size()< curRecvWindowSize - curBytesInFlight) {
             data += _stream.read(1);
-            curSendWindowSize--;
-        }
-
-        if (_stream.eof() && curSendWindowSize>0) {
-            segment.header().fin = true;
-            curSendWindowSize = 0;  // TODO weak fix when fin flag is inserted, code style not scalable
         }
 
         segment.payload() = Buffer(std::move(data));
+
+        if (_stream.eof() && (segment.length_in_sequence_space()< curRecvWindowSize - curBytesInFlight)) {
+            segment.header().fin = true;
+        }
 
         // fill in seqno
         // iniital seqno = wrap(next abosulte seqno, isn)
@@ -80,9 +76,7 @@ void TCPSender::fill_window() {
             }
         }
 
-        if (_stream.buffer_empty() || curSendWindowSize == 0 || _stream.eof()) {
-            return;
-        }
+        if(stream_in().buffer_empty()) return;
     }
 }
 
@@ -119,11 +113,11 @@ void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_si
 
     // check window size and call fill_in window
     if (window_size == 0) {
-        curSendWindowSize = 1;
-        this->curRecvWindowSize =0;
+        curRecvWindowSize =1;
+        falseWindow = true;
     } else {
-        curSendWindowSize = window_size;
-        this->curRecvWindowSize = curSendWindowSize;
+        curRecvWindowSize = window_size;
+        falseWindow = false;
     }
 
     fill_window();
@@ -140,7 +134,7 @@ void TCPSender::tick(const size_t ms_since_last_tick) {
         _segments_out.push(it->second);
 
         // Step 2 check if window size is 0, if no, RTO double & ++ consecutiveTranx
-        if (this->curRecvWindowSize> 0) {
+        if (this->curRecvWindowSize> 0 && !falseWindow) {
             consecutiveReTX++;
             timer.resetReTXRTO();
         }

@@ -57,6 +57,8 @@ class TCPSender {
 
     uint64_t consecutiveReTX = 0;
 
+    bool falseWindow = false;
+
 
     uint64_t checkPoint = 0;    //for checking ackno
 
