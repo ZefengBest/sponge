@@ -51,8 +51,6 @@ class TCPSender {
     //! the (absolute) sequence number for the next byte to be sent
     uint64_t _next_seqno{0};
 
-    uint16_t curSendWindowSize = 1;   //TODO by default how to represent 1 byte using uint16_t?
-
     uint16_t curRecvWindowSize = 1;
 
     uint64_t consecutiveReTX = 0;
