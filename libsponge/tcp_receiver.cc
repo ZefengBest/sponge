@@ -33,14 +33,10 @@ bool TCPReceiver::segment_received(const TCPSegment &seg) {
             eof=true;
         }
         uint64_t index  = unwrap(header.seqno,this->ISN.value(), lastCheckPoint)-1;
-//        cout<<"The index of first byte of data is "<<index<<endl;
-//        cout<<"The actual data is "<<seg.payload().copy()<<endl;
-//        cout<<"The index of the segment is "<<index<<endl;
-//        cout<<"The first unacceptable index is "<<(this->lastCheckPoint + this->window_size()+1)<<endl;
+
         if(index >= (this->lastCheckPoint + this->window_size())) {
             return false;
         }
-
         this->_reassembler.push_substring(seg.payload().copy(), index, eof);
         this->lastCheckPoint = this->lastCheckPoint + (this->stream_out().buffer_size() - prevSize);
     }

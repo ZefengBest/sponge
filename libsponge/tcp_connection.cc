@@ -13,7 +13,7 @@ void DUMMY_CODE(Targs &&.../* unused */) {}
 
 using namespace std;
 
-size_t TCPConnection::remaining_outbound_capacity() const { return _cfg.send_capacity - _sender.bytes_in_flight(); }
+size_t TCPConnection::remaining_outbound_capacity() const { return _cfg.send_capacity - _sender.stream_in().buffer_size(); }
 
 size_t TCPConnection::bytes_in_flight() const { return _sender.bytes_in_flight(); }
 
@@ -22,6 +22,7 @@ size_t TCPConnection::unassembled_bytes() const { return _receiver.unassembled_b
 size_t TCPConnection::time_since_last_segment_received() const { return this->timeSinceLastSegmentReceived; }
 
 void TCPConnection::segment_received(const TCPSegment &seg) {
+    this->timeSinceLastSegmentReceived = 0;
     //!\info abort the connection if RST flag set
     if (seg.header().rst) {
         _sender.stream_in().set_error();
@@ -62,8 +63,12 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
             } else if (_receiver.stream_out().buffer_size() > prevOutSize) {  // some bytes are acknowledged
                 _sender.send_empty_segment();
             }
-        } else if (_sender.segments_out().empty() && ((_receiver.stream_out().buffer_size() > prevOutSize) ||
+        } else if(_sender.segments_out().empty() && seg.header().ack && seg.length_in_sequence_space()==0){      //TODO NO ACK for ACK
+            return;
+        }
+        else if (_sender.segments_out().empty() && ((_receiver.stream_out().buffer_size() > prevOutSize) ||
                                                       unassembled_bytes() > prevUnAssembledSize)) {
+
             _sender.send_empty_segment();
         } else if (_receiver.ackno().has_value() &&
                    !valid) {  //!\info send ack when receive out of window segment AFTER LISTEN
@@ -97,8 +102,6 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
     }
 
     assert(tempVector.empty());
-
-    this->timeSinceLastSegmentReceived = 0;
 }
 
 bool TCPConnection::active() const {
@@ -112,9 +115,10 @@ bool TCPConnection::active() const {
 // sender
 size_t TCPConnection::write(const string &data) {
     // Step 1 write data into outbound stream
-    _sender.stream_in().write(data.substr(0, min(remaining_outbound_capacity(), data.size())));
+    uint64_t  n = min(remaining_outbound_capacity(), data.size());
+    _sender.stream_in().write(data.substr(0, n));
     //!\brief should there be checking on the size of data?
-    uint64_t prevBytesSize = bytes_in_flight();
+//    uint64_t prevBytesSize = bytes_in_flight();
 
     // 2 : fill_ in window
     _sender.fill_window();
@@ -142,8 +146,8 @@ size_t TCPConnection::write(const string &data) {
         _segments_out.push(std::move(seg));
     }
 
-    // TODO return number of bytes actually written?
-    return bytes_in_flight() - prevBytesSize;
+    // return number of bytes actually written?
+    return n;
 }
 
 //! \param[in] ms_since_last_tick number of milliseconds since the last call to this method
@@ -155,6 +159,7 @@ void TCPConnection::tick(const size_t ms_since_last_tick) {
         if (_receiver.stream_out().eof()) {                                                            // req 1
             if (_sender.stream_in().eof() && bytes_in_flight() == 0 &&                                 // req 2 & req 3
                 (_sender.next_seqno_absolute() == _sender.stream_in().bytes_written() + 2)) {
+                cout<<"It comes to this clean shutdown point"<<endl;
                 cleanShutdown = true;
                 return;
             }
