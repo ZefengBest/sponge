@@ -48,7 +48,7 @@ class TCPReceiver {
     //! Formally: the difference between (a) the sequence number of
     //! the first byte that falls after the window (and will not be
     //! accepted by the receiver) and (b) the sequence number of the
-    //! beginning of the window (the ackno).
+    //! beginning of the window (the ackno).  seq - ackno = window
     size_t window_size() const;
     //!@}
 
@@ -56,7 +56,7 @@ class TCPReceiver {
     size_t unassembled_bytes() const { return _reassembler.unassembled_bytes(); }
 
     //! \brief handle an inbound segment
-    void segment_received(const TCPSegment &seg);
+    bool segment_received(const TCPSegment &seg);
 
     //! \name "Output" interface for the reader
     //!@{
