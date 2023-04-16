@@ -22,6 +22,8 @@ size_t TCPConnection::unassembled_bytes() const { return _receiver.unassembled_b
 size_t TCPConnection::time_since_last_segment_received() const { return this->timeSinceLastSegmentReceived; }
 
 void TCPConnection::segment_received(const TCPSegment &seg) {
+
+    if(!active()) return;
     this->timeSinceLastSegmentReceived = 0;
     //!\info abort the connection if RST flag set
     if (seg.header().rst) {
@@ -30,7 +32,10 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
         return;
     }
 
-    if (_receiver.ackno().has_value() && seg.header().seqno == _receiver.ackno().value() - 1 &&
+    if(!_receiver.ackno().has_value() && seg.payload().size()>0){       //receive data before reciving ACK on SYN
+        _sender.send_empty_segment();
+    }
+    else if (_receiver.ackno().has_value() && seg.header().seqno == _receiver.ackno().value() - 1 &&
         seg.length_in_sequence_space() == 0) {  //!\info receive keep-alive segment
         _sender.send_empty_segment();           //!\info is not actually sent through TCPConnection's sgment out queue
     } else {
@@ -39,7 +44,7 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
         uint64_t prevUnAssembledSize = unassembled_bytes();
         bool valid = _receiver.segment_received(seg);
         //!\info state: SYN-acked, received FIN before sending FIN on our side
-        if (seg.header().fin && (_sender.next_seqno_absolute() < _sender.stream_in().bytes_written() + 2)) {
+        if (_receiver.ackno().has_value() && seg.header().fin && (_sender.next_seqno_absolute() < _sender.stream_in().bytes_written() + 2)) {
             _linger_after_streams_finish = false;
         }
 
@@ -68,12 +73,13 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
         }
         else if (_sender.segments_out().empty() && ((_receiver.stream_out().buffer_size() > prevOutSize) ||
                                                       unassembled_bytes() > prevUnAssembledSize)) {
-
             _sender.send_empty_segment();
         } else if (_receiver.ackno().has_value() &&
                    !valid) {  //!\info send ack when receive out of window segment AFTER LISTEN
             _sender.send_empty_segment();
         } else if (_sender.segments_out().empty() && seg.header().fin) {
+            _sender.send_empty_segment();
+        } else if(_sender.segments_out().empty() && seg.length_in_sequence_space()!=0){
             _sender.send_empty_segment();
         }
     }
@@ -159,7 +165,6 @@ void TCPConnection::tick(const size_t ms_since_last_tick) {
         if (_receiver.stream_out().eof()) {                                                            // req 1
             if (_sender.stream_in().eof() && bytes_in_flight() == 0 &&                                 // req 2 & req 3
                 (_sender.next_seqno_absolute() == _sender.stream_in().bytes_written() + 2)) {
-                cout<<"It comes to this clean shutdown point"<<endl;
                 cleanShutdown = true;
                 return;
             }
