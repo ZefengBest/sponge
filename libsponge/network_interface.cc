@@ -37,7 +37,6 @@ void NetworkInterface::send_datagram(const InternetDatagram &dgram, const Addres
     //does cache have the ip address?
     if(cache.find(next_hop_ip)!=cache.end()){
         EthernetAddress  ethernetAddress = cache[next_hop_ip];
-
         sendFrame(dgram.serialize(),ethernetAddress,EthernetHeader::TYPE_IPv4);
         return;
     }
@@ -119,8 +118,6 @@ void NetworkInterface::tick(const size_t ms_since_last_tick) {
     totalPassedTime+=ms_since_last_tick;
     for(auto it = cacheIPTimeMap.begin(); it!=cacheIPTimeMap.end();){
         if(cacheIPTimeMap[it->first]+ms_since_last_tick>=30000){
-//            cout<<"tick  "<<ms_since_last_tick<<endl;
-//            cout<<"Erase cache IP map for "<<it->first<<endl;
             cache.erase(it->first);
             it = cacheIPTimeMap.erase(it);
         }else {
