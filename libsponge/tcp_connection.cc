@@ -33,6 +33,9 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
     }
 
     if(!_receiver.ackno().has_value() && seg.payload().size()>0){       //receive data before reciving ACK on SYN
+       return;
+    }
+    else if (seg.length_in_sequence_space() > _receiver.window_size()){
         _sender.send_empty_segment();
     }
     else if (_receiver.ackno().has_value() && seg.header().seqno == _receiver.ackno().value() - 1 &&
@@ -111,7 +114,7 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
 }
 
 bool TCPConnection::active() const {
-    if (_sender.stream_in().error() || _receiver.stream_out().error())
+    if (_sender.stream_in().error() &&  _receiver.stream_out().error())
         return false;  //!\info after set/receive RST flag
     if (cleanShutdown)
         return false;  // clean shutdown
@@ -158,6 +161,8 @@ size_t TCPConnection::write(const string &data) {
 
 //! \param[in] ms_since_last_tick number of milliseconds since the last call to this method
 void TCPConnection::tick(const size_t ms_since_last_tick) {
+    if(!active()) return;
+
     this->timeSinceLastSegmentReceived += ms_since_last_tick;
 
     //!\info clean shutdown

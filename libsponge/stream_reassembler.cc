@@ -21,7 +21,7 @@ StreamReassembler::StreamReassembler(const size_t capacity) : _output(capacity),
 //! contiguous substrings and writes them into the output stream in order.
 void StreamReassembler::push_substring(const string &data, const uint64_t index, const bool eof) {
 
-    if(eof && data.empty()) _output.end_input();
+    if(data.empty() && eof) _output.end_input();        //special case when nothing to write but signal eof
 
     for (size_t i = 0; i < data.size(); i++) {
 
@@ -35,11 +35,6 @@ void StreamReassembler::push_substring(const string &data, const uint64_t index,
         char c = data[i];
         if ((curIndex == 0 || (visitedIndexSet.find(curIndex - 1) != visitedIndexSet.end()))&& (_output.buffer_size()<_capacity
                                                                                                  )) {
-
-            if(i==data.size()-1 && eof) {
-                this->_output.end_input();
-            }
-
             visitedIndexSet.insert(curIndex);     // byte at this index has been visited
             _output.write(std::string(1, c));  // write this byte to string
 

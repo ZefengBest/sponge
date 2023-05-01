@@ -21,7 +21,7 @@ class TCPReceiver {
     size_t _capacity;
     std::optional<WrappingInt32> ISN= std::nullopt;
     std::optional<WrappingInt32> fin= std::nullopt;
-    uint64_t lastCheckPoint=0;
+    uint64_t lastCheckPoint=-2;
   public:
     //! \brief Construct a TCP receiver
     //!

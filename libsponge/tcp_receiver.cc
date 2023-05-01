@@ -16,7 +16,9 @@ bool TCPReceiver::segment_received(const TCPSegment &seg) {
 //    uint64_t segSize = seg.length_in_sequence_space();
     uint64_t prevSize = this->stream_out().buffer_size();
     bool prevInputEnd = this->stream_out().input_ended();
-    if (header.syn == true) {
+    if(prevInputEnd) return true;
+
+    if (header.syn == true && !this->ISN.has_value()) {
         bool eof = false;
         if(header.fin==true){
             fin.emplace(WrappingInt32(1)); //check whether fin flag has been set or not for later update ackno
@@ -26,23 +28,29 @@ bool TCPReceiver::segment_received(const TCPSegment &seg) {
         this->_reassembler.push_substring(seg.payload().copy(), 0, eof);
         this->lastCheckPoint = this->stream_out().buffer_size();    //first time lastCheckPoint
     }else{
+        if(header.syn) return false;
         if(!this->ISN.has_value()) return false;
         bool eof = false;
+
+        uint64_t index  = unwrap(header.seqno,this->ISN.value(), lastCheckPoint)-1;
+
+        if(index >= (this->lastCheckPoint + this->window_size())) { //!\info unacceptable bytes out of window, check using stream index
+            return false;
+        }
+
         if(header.fin==true){
             fin.emplace(WrappingInt32(1)); //check whether fin flag has been set or not for later update ackno
             eof=true;
         }
-        uint64_t index  = unwrap(header.seqno,this->ISN.value(), lastCheckPoint)-1;
 
-        if(index >= (this->lastCheckPoint + this->window_size())) {
-            return false;
-        }
+
         this->_reassembler.push_substring(seg.payload().copy(), index, eof);
         this->lastCheckPoint = this->lastCheckPoint + (this->stream_out().buffer_size() - prevSize);
     }
+
+
     //TODO checkPoint shouldn't increase again if already receive a fin and input ended
     if(this->ISN.has_value() && this->fin.has_value()&& (!prevInputEnd&& stream_out().input_ended())) this->lastCheckPoint++;
-//    cout<<"The checkpoint is "<<this->lastCheckPoint<<endl;
     return true;
 }
 
